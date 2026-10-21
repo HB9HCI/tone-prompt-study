@@ -39,7 +39,12 @@ def task_key(record: dict) -> tuple:
 
 
 def load_successful_tasks(path: Path) -> set[tuple]:
-    """Überspringt nur erfolgreich gespeicherte Antworten im Format A–D."""
+    """Überspringt jede bereits beantwortete Aufgabe (status == "ok").
+
+    Ob der Antwortbuchstabe parsebar war, ist für das Fortsetzen unerheblich:
+    die Frage wurde gestellt und bezahlt. Eine nicht auswertbare Antwort wird
+    später offline nachgeparst, nicht erneut an das Modell geschickt.
+    """
     completed = set()
     if not path.exists():
         return completed
@@ -50,13 +55,8 @@ def load_successful_tasks(path: Path) -> set[tuple]:
                 continue
 
             record = json.loads(line)
-            raw_answer = record.get("rohantwort")
 
-            if (
-                record.get("status") == "ok"
-                and isinstance(raw_answer, str)
-                and re.fullmatch(r"[A-D]", raw_answer.strip())
-            ):
+            if record.get("status") == "ok":
                 completed.add(task_key(record))
 
     return completed
@@ -124,7 +124,7 @@ def main() -> None:
     completed = load_successful_tasks(OUTPUT_PATH) if args.resume else set()
     output_mode = "a" if args.resume else "x"
 
-    calls_done = 0
+    calls_done = len(completed)
     with OUTPUT_PATH.open(output_mode, encoding="utf-8") as output:
         for question in questions:
             correct_letter = answer_letter(question["answer"])
