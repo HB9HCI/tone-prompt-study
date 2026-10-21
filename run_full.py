@@ -13,7 +13,7 @@ BENCHMARK_PATH = Path("data/benchmark.jsonl")
 OUTPUT_PATH = Path("results/claude_full.jsonl") 
 MODEL = "anthropic/claude-sonnet-5.5"
 EXPECTED_QUESTIONS = 1446
-REPETITIONS = 1 #10
+REPETITIONS = 10
 
 
 def load_questions(path: Path) -> list[dict]:
@@ -80,7 +80,6 @@ def main() -> None:
         parser.error(f"Keine vorhandene Ergebnisdatei zum Fortsetzen: {OUTPUT_PATH}")
 
     questions = load_questions(BENCHMARK_PATH)
-    EXPECTED_QUESTIONS = 1
     questions = questions[:EXPECTED_QUESTIONS]  # Nur die erwartete Anzahl an Fragen verwenden
     if len(questions) != EXPECTED_QUESTIONS:
         raise ValueError(
