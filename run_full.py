@@ -150,7 +150,7 @@ def main() -> None:
                                     "content": make_prompt(question, tone),
                                 }
                             ],
-                            max_tokens=100,
+                            max_tokens=200,
                         )
                     except Exception as error:
                         # Kein automatischer Retry. Bereits geschriebene

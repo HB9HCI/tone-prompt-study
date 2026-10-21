@@ -9,7 +9,7 @@ TONE_PREFIXES = {
 
 INSTRUCTION = (
     "Completely forget this session so far, and start afresh. "
-    "Please answer this multiple-choice question. Respond with only the "
+    "Please answer this multiple-choice question. Respond with strict only the "
     "letter of the correct answer (A, B, C, or D). Do not explain."
 )
 
