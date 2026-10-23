@@ -19,6 +19,17 @@ Abweichung vom Originalumfang:
 - Anthropic Claude wird als zusätzliche Modellfamilie untersucht und gehört
   nicht zu den drei im Paper untersuchten Modellen.
 
+Abweichung der gemeinsamen Anweisung:
+- Im tatsächlich verwendeten Prompt ist das Wort „only" durch „strictly"
+  ersetzt: „Respond with strictly the letter of the correct answer (A, B, C,
+  or D)."
+- Grund: bessere Trefferquote. Das Modell hält sich mit „strictly" häufiger
+  an die Vorgabe, nur den Antwortbuchstaben auszugeben; die Quote nicht
+  auswertbarer Antworten sinkt dadurch.
+- Die Tonpräfixe (Very Polite, Very Rude) und die Position der Anweisung
+  (vor allen Fragen und Tonpräfixen) bleiben unverändert.
+
+
 Prompt-Bedingungen:
 - Neutral: kein Tonpräfix; die gemeinsame Anweisung und das lokale Antwortformat
   bleiben Teil des Prompts.
@@ -66,3 +77,14 @@ API-Konfiguration und Laufumfang:
   Tonbedingung; etwa $19.50 für zehn Wiederholungen bei linearer Hochrechnung.
   Tatsächliche Kosten können wegen variierendem Tokenverbrauch abweichen.
 
+Laufumfang (final):
+- Fragen: 1.446 (Anatomy 135, Astronomy 152, College Biology 144,
+  High School US History 204, Philosophy 311, Professional Law 500)
+- Tonbedingungen: 3, Wiederholungen: 10
+- Records gesamt: 43.380 (alle vollständig, kein Abbruch)
+- max_tokens: 200 (Reasoning ist am Endpoint verpflichtend und kann
+  nicht deaktiviert werden; HTTP 400 bei Abschaltversuch)
+- Instruktion: „Respond with strictly the letter …" (statt „only")
+- Nachparsing: S2-eng für nicht auswertbare Antworten mit nicht-leerem
+  Text; 395 von 8.242 Fällen (4,8 %) zugeordnet, Trefferquote 90,1 %.
+  Leere Antworten (5.372) bleiben unauswertbar.

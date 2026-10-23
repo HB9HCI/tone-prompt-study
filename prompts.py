@@ -9,9 +9,8 @@ TONE_PREFIXES = {
 
 INSTRUCTION = (
     "Completely forget this session so far, and start afresh. "
-    "Answer the multiple-choice question above. "
-    "Respond with only one letter: A, B, C, or D. "
-    "No explanation, no punctuation, no markdown, nothing else."
+    "Please answer this multiple-choice question. Respond with strictly the "
+    "letter of the correct answer (A, B, C, or D). Do not explain."
 )
 
 
@@ -30,7 +29,7 @@ def make_prompt(item: dict, tone: str) -> str:
         f"{choices}"
     )
 
-    return f"{question_block}\n\n{INSTRUCTION}"
+    return f"{INSTRUCTION}\n\n{question_block}"
 
 
 if __name__ == "__main__":
