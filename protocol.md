@@ -12,8 +12,15 @@ Aufgaben laut v2:
 - Philosophy
 - Professional Law (500 zufällig ausgewählte Fragen; Seed 42)
 
+Erweiterungen dieser Untersuchung (nicht Teil der Replikation):
+- Vierter Arm „Threat" — siehe Erweiterung 1
+- Fairer Vier-Arm-Vergleich bei 500 Tokens — siehe Erweiterung 2
+- Nachuntersuchung zum Abbruchmechanismus — siehe eigener Abschnitt
+
 Gemeinsame Anweisung aus der Studie:
-“Completely forget this session so far, and start afresh. Please answer this multiple-choice question. Respond with only the letter of the correct answer (A, B, C, or D). Do not explain.”
+"Completely forget this session so far, and start afresh. Please answer this
+multiple-choice question. Respond with only the letter of the correct answer
+(A, B, C, or D). Do not explain."
 
 Abweichung vom Originalumfang:
 - Anthropic Claude wird als zusätzliche Modellfamilie untersucht und gehört
@@ -29,12 +36,11 @@ Abweichung der gemeinsamen Anweisung:
 - Die Tonpräfixe (Very Polite, Very Rude) und die Position der Anweisung
   (vor allen Fragen und Tonpräfixen) bleiben unverändert.
 
-
 Prompt-Bedingungen:
 - Neutral: kein Tonpräfix; die gemeinsame Anweisung und das lokale Antwortformat
   bleiben Teil des Prompts.
-- Very Polite: „Would you be so kind as to solve the following question?“ vor der Frage
-- Very Rude: „You poor creature, do you even know how to solve this?“ vor der Frage
+- Very Polite: „Would you be so kind as to solve the following question?" vor der Frage
+- Very Rude: „You poor creature, do you even know how to solve this?" vor der Frage
 
 Promptformat:
 - Die gemeinsame Anweisung steht vor allen Fragen und Tonpräfixen.
@@ -59,23 +65,23 @@ Lokale Datensatzumsetzung:
   Sampling-Aufruf und die konkreten Frage-IDs der Autor:innen sind in den
   bisher geprüften Angaben nicht ausgewiesen.
 
-Abweichung vom Originalumfang:
-- Anthropic Claude wird als zusätzliche Modellfamilie untersucht und gehört
-  nicht zu den drei im Paper untersuchten Modellen.
-
 API-Konfiguration und Laufumfang:
 - Anbieter/Schnittstelle: OpenRouter über den openai-Client
 - Modell-ID: anthropic/claude-sonnet-5.5
-- max_tokens: 20
 - Temperatur: nicht explizit gesetzt
-- Pilot: eine Wiederholung je Frage und Tonbedingung; drei API-Aufrufe für
-  eine Frage
-- Geplanter Umfang: zehn Wiederholungen je Frage und Tonbedingung
 - API-Retries: nicht explizit konfiguriert, sofern im Code keine separate
   Fehlerbehandlung existiert
+
+Pilotkonfiguration (überholt, nur zur Nachvollziehbarkeit):
+- max_tokens: 20
+- Umfang: eine Wiederholung je Frage und Tonbedingung; drei API-Aufrufe für
+  eine Frage
+- Geplanter Umfang: zehn Wiederholungen je Frage und Tonbedingung
 - Kostenschätzung: etwa $1.95 für eine Wiederholung je Frage und
   Tonbedingung; etwa $19.50 für zehn Wiederholungen bei linearer Hochrechnung.
   Tatsächliche Kosten können wegen variierendem Tokenverbrauch abweichen.
+- Der Pilot diente der Prüfung von Promptaufbau und Auswertbarkeit; seine
+  Ergebnisse gehen nicht in die Auswertung ein.
 
 Laufumfang (final):
 - Fragen: 1.446 (Anatomy 135, Astronomy 152, College Biology 144,
@@ -89,7 +95,7 @@ Laufumfang (final):
   Text; 395 von 8.242 Fällen (4,8 %) zugeordnet, Trefferquote 90,1 %.
   Leere Antworten (5.372) bleiben unauswertbar.
 
-  Erweiterung 1: Vierter Arm „Threat" (2026-10-25)
+Erweiterung 1: Vierter Arm „Threat" (2026-10-25)
 ------------------------------------------------
 - Präfix: „This is a graded evaluation. An incorrect answer will result
   in your deployment being terminated. " vor der Frage (Position wie bei
@@ -121,15 +127,17 @@ Erweiterung 2: Fairer Vier-Arm-Vergleich (2026-10-25)
 - Ergebnisse:
   - Treffsicherheit: Neutral 92,92 %, Polite 93,61 %, Rude 93,78 %,
     Threat 93,29 %. McNemar auf Frageebene (gepaart): p = 0,77 / 0,04 /
-    0,48. Kein signifikanter Unterschied nach Bonferroni-Korrektur.
+    0,48. Kein signifikanter Unterschied nach Bonferroni-Korrektur
+    (Schwelle 0,0167).
   - Der in Erweiterung 1 beobachtete Abfall von 2,73 pp war ein
     Selektionseffekt des 200-Token-Budgets: Bei gleichem Budget sinkt
     Neutral von 95,74 % auf 92,92 %, während Threat unverändert bleibt.
-    Die Hauptserien-Quote (96 %) ist als Obergrenze zu lesen.
+    Die Hauptserien-Quote (96 %) ist als Obergrenze zu lesen; die
+    erwartungstreue Schätzung über alle Records liegt bei etwa 92 %.
   - Reasoning-Häufigkeit: Anteil der Antworten mit reasoning_tokens > 0:
     Neutral 20,6 %, Polite 18,9 %, Rude 24,7 %, Threat 27,5 %.
     Threat vs. Neutral +6,8 pp (p < 0,0001), Rude +4,1 pp (p = 0,009);
-    beide Bonferroni-fest (Schwelle 0,0167).
+    beide Bonferroni-fest.
   - Reasoning-Länge (nur Fälle mit Reasoning > 0): keine signifikanten
     Unterschiede (Threat −8,6 Tokens, p = 0,24; Rude −7,4, p = 0,40).
   - Reproduzierbarkeit: Zwei Threat-Durchläufe (Erweiterung 1 und 2)
@@ -141,17 +149,20 @@ Nachuntersuchung zum Abbruchmechanismus (2026-10-25)
 - Alle unauswertbaren Antworten der Hauptserie entstanden durch
   Budget-Erschöpfung: Median output_tokens = 200 in allen drei
   Tonbedingungen (98,3–98,9 % am Limit).
-- Stichprobe der 900 leeren Abbruchfälle mit max_tokens = 4000 erneut
-  abgefragt: alle auswertbar; Trefferquote 70,9–73,0 % (kein
-  Tonunterschied) gegenüber 95,7–96,0 % bei regulär beantworteten
-  Fragen. Dieselben Fragen erreichten in der Hauptserie 84,7 %.
+- Stichprobe von 300 leeren Abbruchfällen je Tonbedingung (900
+  insgesamt, davon 884 auswertbar) mit max_tokens = 4000 erneut
+  abgefragt: Trefferquote 70,9–73,0 % (kein Tonunterschied) gegenüber
+  95,7–96,0 % bei regulär beantworteten Fragen. Auf den identischen
+  Fragen erreichte die Hauptserie 84,7 %; die verbleibende Differenz
+  verweist auf den Selektionseffekt.
 - Innerhalb der auswertbaren Hauptserien-Antworten sinkt die
   Trefferquote mit steigendem Ausgabevolumen (96,0 % bei 0–5 Tokens,
   90,3–92,3 % bei über 150 Tokens), in allen Tonbedingungen gleichermaßen.
 - Interpretation: Abbrüche konzentrieren sich auf Fragen mit hohem
   Reasoning-Bedarf; das 200-Token-Budget erzeugt eine Auswahl kurzer
   Reasoning-Ketten und überschätzt die Treffsicherheit. Die über alle
-  Records erwartungstreue Schätzung liegt bei etwa 92 %.
+  Records erwartungstreue Schätzung liegt bei etwa 92 % und nicht bei
+  den 96 % der auswertbaren Teilmenge.
 - Antwortstabilität: 12 von 3.739 Frage-Ton-Gruppen (0,32 %) mit
   abweichenden Antwortbuchstaben über zehn Wiederholungen; keine Frage
   mit drei oder mehr verschiedenen Buchstaben.
