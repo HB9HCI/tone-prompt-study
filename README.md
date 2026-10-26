@@ -92,5 +92,6 @@ items are skipped.
 
 ## Status
 
-Data collection and analysis are complete; the written report is in
-preparation. Questions and issues via the issue tracker.
+Data collection and analysis are complete. The study report
+(`report.md`) and the full pipeline are archived via Zenodo (DOI: <DOI>).
+Questions and issues via the issue tracker.
