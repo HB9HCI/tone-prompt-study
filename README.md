@@ -95,3 +95,5 @@ items are skipped.
 Data collection and analysis are complete. The study report
 (`report.md`) and the full pipeline are archived via Zenodo (DOI: <DOI>).
 Questions and issues via the issue tracker.
+
+[![DOI](https://zenodo.org/badge/1426650025.svg)](https://doi.org/10.5281/zenodo.23654427)
