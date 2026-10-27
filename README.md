@@ -104,7 +104,7 @@ Questions and issues via the issue tracker.
 
 The raw data you find here:
 
-[![DOI](https://zenodo.org/badge/1426650025.svg)](https://doi.org/10.5281/zenodo.23692259)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23692260.svg)](https://doi.org/10.5281/zenodo.23692260)
 
 
 
