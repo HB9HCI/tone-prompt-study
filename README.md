@@ -100,3 +100,11 @@ Data collection and analysis are complete. The study report
 Questions and issues via the issue tracker.
 
 
+## Raw Data
+
+The raw data you find here:
+
+[![DOI](https://zenodo.org/badge/1426650025.svg)](https://doi.org/10.5281/zenodo.23692259)
+
+
+
