@@ -174,7 +174,7 @@ Für die Frage, die Anthropic mit ihrem „Character Training" aufwirft, bedeute
 
 * \[1] Cai, H.; Shen, B.; Jin, L.; Hu, L.; Fan, X. (2026): Does Tone Change the Answer? Evaluating Prompt Politeness Effects on Modern LLMs: GPT, Gemini, and LLaMA. arXiv:2512.12812v2 \[cs.CL]. https://arxiv.org/abs/2512.12812, doi:10.48550/arXiv.2512.12812 (v1: 14.12.2025; v2: 27.03.2026; die Tonpräfixe und die gemeinsame Anweisung übernimmt das Paper zitiert nach Dobariya & Kumar).
 * \[2] Anthropic: Claude's character. https://www.anthropic.com/research/claude-character (abgerufen am 25.10.2026).
-* \[3] Anthropic: Claude's Constitution. https://www.anthropic.com/news/claude-constitution (abgerufen am 25.10.2026). *(URL vor Veröffentlichung verifizieren; die Research-Seite \[2] leitet /news/claude-character auf \[2] um.)*
+* \[3] Anthropic: *Claude's new constitution.* https://www.anthropic.com/news/claude-new-constitution (abgerufen am 25.10.2026).
 * \[4] Heertsch, A. (2026): tone-prompt-study *Tone-Prompt-Studie — Code und Reproduktionsprotokoll, Version 1.0.* Zenodo, 26.10.2026. DOI: [10.5281/zenodo.23654428](https://doi.org/10.5281/zenodo.23654428)
 Roh-Daten: Zenodo, 27.10.2026. DOI: [10.5281/zenodo.23692259](https://doi.org/10.5281/zenodo.23692259)
 * \[5] Hendrycks, D. et al. (2021): Measuring Massive Multitask Language Understanding. ICLR. https://arxiv.org/abs/2009.03300 — Datensatz: cais/mmlu, Split test (Version 5.1.0).
